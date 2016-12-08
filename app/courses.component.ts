@@ -1,24 +1,31 @@
 import {Component} from 'angular2/core';
 import {CourseService} from './course.service'
-import {AutoGrowDirective} from './auto-grow-directive'
+import {FavoriteComponent} from './favorite.component'
+import {LikeComponent} from './like.component'
 @Component({
     selector: 'courses',
     template: `
     <h2>Courses</h2>
-    {{title}}
-    <input type ='text' autoGrow/>
+    <input type="text" [(ngModel)] = "title" />
+    <input type="button" (click)="title = ''" value="Clear" />
+    <p>Preview: {{ title }}</p>
     <ul>
       <li *ngFor="#course of courses">
-      {{course}}</li>
+      <like [is-loved] = "post.isLoved" (change)="onLikeChange($event)"></like>{{course}}</li>
     </ul>
     `,
     providers: [CourseService],
-    directives: [AutoGrowDirective]
+    directives: [FavoriteComponent,LikeComponent]
 })
 export class CoursesComponent {
-    title = "The title of the courses page";
-    courses;
 
+    courses;
+    post = {
+      isLoved: false
+    }
+    onLikeChange($event){
+      console.log($event)
+    }
     constructor(courseService: CourseService) {
         this.courses = courseService.getCourses();
     }

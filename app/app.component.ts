@@ -6,12 +6,11 @@ import {AuthorsComponent} from './authors.component';
     selector: 'my-app',
     template: `
     <h1>{{title}}</h1>
-    <img [src] = 'imageURL'/>
     <courses></courses>
     <authors></authors>`,
     directives: [CoursesComponent, AuthorsComponent]
 })
+
 export class AppComponent {
-  title = 'Angular App';
-  imageURL = 'https://lorempixel.com/400/200/';
+  title = 'Angular2 App';
 }
